@@ -139,10 +139,10 @@ footer i {
     font-size: 10vw;
   }
   .caption1 {
-    top: 20%;
+    top: 10%;
   }
   .caption2 {
-    top: 10%;
+    top: -5%;
   }
   .icon-footer-container {
     padding-top: 40px;
@@ -152,8 +152,8 @@ footer i {
   }
 }
 @media screen and (max-width: 400px) {
-  nav {
+  /* nav {
     position: static;
     background: linear-gradient(90deg, rgb(252, 207, 46), rgb(248, 191, 42));
-  }
+  } */
 }

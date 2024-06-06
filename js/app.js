@@ -1,18 +1,19 @@
+// for bootstrap carousel...
 const myCarouselElement = document.querySelector("#carouselExampleSlidesOnly");
-
 const carousel = new bootstrap.Carousel(myCarouselElement, {
   interval: 4000,
   touch: false,
   pause: false,
   keyboard: true,
 });
+// for bootstrap popover...
 const popoverTriggerList = document.querySelectorAll(
   '[data-bs-toggle="popover"]'
 );
 const popoverList = [...popoverTriggerList].map(
   (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
 );
-
+//here we define all the products to reduce html code :
 const products = [
   {
     title: "Gloves",
@@ -65,7 +66,7 @@ const products = [
       "Our t-shirt is the ultimate staple for any wardrobe. Made from soft, sustainable cotton, it offers breathability and comfort. The classic cut ensures a great fit, while the vibrant colors remain bright wash after wash. Ideal for casual outings or layering under a jacket.",
   },
 ];
-
+//render all products in page
 const productsSection = document.querySelector("#products .row");
 products.forEach((product) => {
   productsSection.innerHTML += `
@@ -123,6 +124,7 @@ products.forEach((product) => {
 </div>
     `;
 });
+
 const plus = document.querySelectorAll(".plus");
 const minus = document.querySelectorAll(".minus");
 const productQuantity = document.querySelectorAll(".product-quantity");
@@ -133,6 +135,7 @@ const cartBadge = document.querySelector(".badge");
 let deleteAllBtn = document.querySelector("#delete-all-btn");
 let removeFromCartBtn = document.querySelectorAll(".remove-from-cart");
 
+//add eventlistner to all button to make the page dynamic
 for (let i = 0; i < products.length; i++) {
   plus[i].addEventListener("click", () => {
     if (products[i].quantity === 10) return;
@@ -155,7 +158,7 @@ for (let i = 0; i < products.length; i++) {
     addToCart();
   });
 }
-
+//function to add the products to cart
 function addToCart() {
   let total = 0;
   cartContainer.innerHTML = "";
@@ -192,7 +195,7 @@ function addToCart() {
     cartBadge.innerText = cart.length;
     cartBadge.classList.remove("d-none");
   }
-  updateEvent();
+  updateEvent(); // call this function to keep the page dynamic
   const section = document.createElement("section");
   cartContainer.appendChild(section);
   section.innerHTML = `
@@ -205,6 +208,8 @@ function addToCart() {
 </div>
 
 `;
+
+  //delete all products from cart
   deleteAllBtn = document.querySelector("#delete-all-btn");
   deleteAllBtn.addEventListener("click", () => {
     cart.forEach((product) => {
@@ -215,7 +220,7 @@ function addToCart() {
     });
     cart = [];
     addToCart();
-    emptyCart();
+    emptyCart(); //cal this to show 'no products' word
   });
 }
 function updateEvent() {
@@ -225,6 +230,8 @@ function updateEvent() {
     });
   }
 }
+
+//remove single product from cart using the title and the index that we define above in products array
 function removeFromCart(i) {
   const removedProduct = products.find((product) => {
     return product.title === cart[i].title;
@@ -235,7 +242,11 @@ function removeFromCart(i) {
   plus[removedProduct.index].disabled = products[removedProduct.index].inCart;
   minus[removedProduct.index].disabled = products[removedProduct.index].inCart;
   addToCartBtn[removedProduct.index].innerHTML = "Add to Cart";
-  cart.splice(i, 1);
+  cart.splice(
+    i,
+    1
+  ); /*splice use to remove item from array, i refer to the index will remove from array,
+   and 1 to numbers of items you wanna remove after this index*/
   addToCart();
   emptyCart();
 }
