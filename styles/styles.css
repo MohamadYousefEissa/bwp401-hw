@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap");
+nav {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  padding-top: 0.5rem;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.carousel img {
+  height: 100vh;
+}
+.carousel-caption {
+  font-size: 5vw;
+  text-shadow: 30px 30px 80px black;
+  font-weight: bold;
+  top: 15%;
+  text-align: start;
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+  right: auto;
+}
+.carousel-caption i {
+  font-size: 6vw;
+}
+
+.caption2 {
+  left: 70%;
+}
+.card-img-top {
+  height: 300px;
+  cursor: pointer;
+}
+.img-cart {
+  width: 150px;
+  height: 100px;
+}
+
+.product-quantity {
+  border: 0;
+  width: 22px;
+  text-align: center;
+  background: transparent;
+  color: black;
+}
+.add-to-cart-btn {
+  transition: all 0.3s;
+}
+.add-to-cart-btn:disabled {
+  background: green;
+  border: 0;
+}
+
+#details-cont {
+  background: white;
+  color: black;
+}
+#details-cont h2 {
+  margin-bottom: 0;
+  color: var(--bs-primary);
+}
+#details-cont span {
+  color: rgb(218, 10, 117);
+}
+#details-cont,
+#details-cont h2 {
+  font-weight: bold;
+}
+
+th,
+tr,
+td {
+  border: 1px solid #c4dcf3;
+  text-align: center;
+}
+thead {
+  color: white;
+  background: var(--bs-primary);
+}
+tbody tr:nth-of-type(odd) {
+  background: #eef7ff;
+}
+
+footer {
+  background: rgb(17, 158, 158);
+}
+footer i {
+  color: white;
+  font-size: 32px;
+}
+.footer-information {
+  color: white;
+}
+.icon-footer-container {
+  padding-top: 80px;
+}
+.scroll-top {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  margin-top: -260px;
+  right: 60px;
+  cursor: pointer;
+  border: 1px solid white;
+  background: rgb(237, 201, 0);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+.scroll-top:hover {
+  background: rgb(235, 208, 51);
+}
+
+.badge {
+  font-size: 10px;
+  margin-top: -0.1rem;
+  margin-left: 0.2rem;
+}
+@media screen and (max-width: 1023px) {
+  .carousel img {
+    height: 70vh;
+  }
+}
+@media screen and (max-width: 766px) {
+  .carousel img {
+    height: 40vh;
+  }
+  .carousel-caption {
+    font-size: 8vw;
+    top: 30%;
+  }
+  .carousel-caption i {
+    font-size: 10vw;
+  }
+  .caption1 {
+    top: 20%;
+  }
+  .caption2 {
+    top: 10%;
+  }
+  .icon-footer-container {
+    padding-top: 40px;
+  }
+  .scroll-top {
+    margin-top: -410px;
+  }
+}
+@media screen and (max-width: 400px) {
+  nav {
+    position: static;
+    background: linear-gradient(90deg, rgb(252, 207, 46), rgb(248, 191, 42));
+  }
+}
