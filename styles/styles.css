@@ -158,4 +158,10 @@ footer i {
   .scroll-top {
     margin-top: -410px;
   }
+  #pay-card input {
+    width: 100%;
+  }
+  .dropdown form {
+    width: 100vw;
+  }
 }

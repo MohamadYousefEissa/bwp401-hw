@@ -219,20 +219,20 @@ function addToCart() {
 <div class="dropdown">
   <form class="dropdown-menu p-4" id="pay-card">
       <label class="form-label">Location</label>
-      <input name="location" type="text" class="form-control w-100" placeholder="Location">
+      <input required name="location" type="text" class="form-control w-100" placeholder="Location">
       <label  class="form-label mt-2">Card number</label>
-      <input name="card-number" type="text" class="form-control w-100" placeholder="Card number">
+      <input required name="card-number" type="text" class="form-control w-100" placeholder="Card number">
 
       <div class="d-flex gap-3 mt-2 mb-2">
-        <input name="mm/yy" type="text" class="form-control" placeholder="MM / YY">
-        <input name="cvv" type="text" class="form-control" placeholder="CVV">
+        <input required name="mm/yy" type="text" class="form-control" placeholder="MM / YY">
+        <input required name="cvv" type="text" class="form-control" placeholder="CVV">
         <img src="./images/cvv-icon.png" class="cvv-icon" />
       </div>
 
       <label class="form-label">Billing address</label>
       <div class="d-flex gap-3 mb-2">
-        <input name="first-name" type="text" class="form-control" placeholder="First name">
-        <input name="last-name" type="text" class="form-control" placeholder="Last name">
+        <input required name="first-name" type="text" class="form-control" placeholder="First name">
+        <input required name="last-name" type="text" class="form-control" placeholder="Last name">
       </div>
       <button type="submit" class="btn btn-primary">Buy Now</button>
   </form>
@@ -372,4 +372,11 @@ async function fetchUserInformation() {
   user_cvv.value = "";
   user_fname.value = "";
   user_lname.value = "";
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title: "Done, your order is send successfully",
+    showConfirmButton: false,
+    timer: 1500,
+  });
 }
