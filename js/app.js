@@ -212,12 +212,41 @@ function addToCart() {
 <b>Total: ${total}$</b>
 <div>
 <button class="btn btn-danger" id="delete-all-btn">Delete All</button>
-<button class="btn btn-primary">Buy</button>
+
+<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+  Buy
+</button>
+<div class="dropdown">
+  <form class="dropdown-menu p-4" id="pay-card">
+      <label class="form-label">Location</label>
+      <input name="location" type="text" class="form-control w-100" placeholder="Location">
+      <label  class="form-label mt-2">Card number</label>
+      <input name="card-number" type="text" class="form-control w-100" placeholder="Card number">
+
+      <div class="d-flex gap-3 mt-2 mb-2">
+        <input name="mm/yy" type="text" class="form-control" placeholder="MM / YY">
+        <input name="cvv" type="text" class="form-control" placeholder="CVV">
+        <img src="./images/cvv-icon.png" class="cvv-icon" />
+      </div>
+
+      <label class="form-label">Billing address</label>
+      <div class="d-flex gap-3 mb-2">
+        <input name="first-name" type="text" class="form-control" placeholder="First name">
+        <input name="last-name" type="text" class="form-control" placeholder="Last name">
+      </div>
+      <button type="submit" class="btn btn-primary">Buy Now</button>
+  </form>
+</div>
+
 </div>
 </div>
 
 `;
-
+  const form = document.querySelector("#pay-card");
+  form.addEventListener("submit", (res) => {
+    res.preventDefault();
+    fetchUserInformation();
+  });
   //delete all products from cart
   deleteAllBtn = document.querySelector("#delete-all-btn");
   deleteAllBtn.addEventListener("click", () => {
@@ -309,3 +338,38 @@ async function getData() {
 }
 getData();
 emptyCart();
+
+//add user information to database
+async function fetchUserInformation() {
+  const user_location = document.querySelector("input[name='location']");
+  const user_cardNum = document.querySelector("input[name='card-number']");
+  const user_mmyy = document.querySelector("input[name='mm/yy']");
+  const user_cvv = document.querySelector("input[name='cvv']");
+  const user_fname = document.querySelector("input[name='first-name']");
+  const user_lname = document.querySelector("input[name='last-name']");
+  await fetch(
+    `https://bwp501-hw-default-rtdb.firebaseio.com/users/${
+      user_fname.value + " " + user_lname.value + " " + ID
+    }.json`,
+    {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        location: user_location.value,
+        cardnumber: user_cardNum.value,
+        mmyy: user_mmyy.value,
+        cvv: user_cvv.value,
+        firstname: user_fname.value,
+        lastname: user_lname.value,
+      }),
+    }
+  );
+  user_location.value = "";
+  user_cardNum.value = "";
+  user_mmyy.value = "";
+  user_cvv.value = "";
+  user_fname.value = "";
+  user_lname.value = "";
+}
