@@ -139,7 +139,7 @@ footer i {
     font-size: 10vw;
   }
   .caption1 {
-    top: 10%;
+    top: 15%;
   }
   .caption2 {
     top: -5%;
@@ -150,10 +150,4 @@ footer i {
   .scroll-top {
     margin-top: -410px;
   }
-}
-@media screen and (max-width: 400px) {
-  /* nav {
-    position: static;
-    background: linear-gradient(90deg, rgb(252, 207, 46), rgb(248, 191, 42));
-  } */
 }
