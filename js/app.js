@@ -137,7 +137,7 @@ let deleteAllBtn = document.querySelector("#delete-all-btn");
 let removeFromCartBtn = document.querySelectorAll(".remove-from-cart");
 const errorAlert = document.querySelector("#error-alert");
 
-//add eventlistner to all button to make the page dynamic
+//add eventlistner to all button to make the page dynamic when add or remove product
 for (let i = 0; i < products.length; i++) {
   plus[i].addEventListener("click", () => {
     if (products[i].quantity === 10) return;
@@ -204,7 +204,7 @@ function addToCart() {
     cartBadge.innerText = cart.length;
     cartBadge.classList.remove("d-none");
   }
-  updateEvent(); // call this function to keep the page dynamic
+  updateEvent(); // call this function to keep the page dynamic when remove a product
   const section = document.createElement("section");
   cartContainer.appendChild(section);
   section.innerHTML = `
@@ -243,6 +243,7 @@ function updateEvent() {
 
 //remove single product from cart using the title and the index that we define above in products array
 function removeFromCart(i) {
+  //side note : find is a method return an object that the product we want remove
   const removedProduct = products.find((product) => {
     return product.title === cart[i].title;
   });
@@ -266,7 +267,7 @@ function emptyCart() {
     cartBadge.classList.add("d-none");
   }
 }
-//add random id to user
+//create a random id to user
 let ID = localStorage.getItem("e-comm_ID") || null;
 if (!ID) {
   localStorage.setItem("e-comm_ID", Math.floor(Math.random() * 999));
