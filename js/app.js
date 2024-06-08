@@ -13,6 +13,7 @@ const popoverTriggerList = document.querySelectorAll(
 const popoverList = [...popoverTriggerList].map(
   (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
 );
+
 //here we define all the products to reduce html code :
 const products = [
   {
@@ -150,8 +151,8 @@ for (let i = 0; i < products.length; i++) {
   });
   addToCartBtn[i].addEventListener("click", () => {
     cart.push(products[i]);
-    postCart();
     productsControlBtns();
+    fetchData();
     addToCart();
   });
 }
@@ -227,8 +228,8 @@ function addToCart() {
       minus[product.index].disabled = false;
     });
     cart = [];
+    fetchData();
     addToCart();
-    postCart();
     emptyCart(); //cal this to show 'no products' word
   });
 }
@@ -254,8 +255,8 @@ function removeFromCart(i) {
   cart.splice(i, 1);
   /*splice use to remove item from array, i refer to the index will remove from array,
    and 1 to numbers of items you wanna remove after this index*/
+  fetchData();
   addToCart();
-  postCart();
   emptyCart();
 }
 
@@ -265,31 +266,39 @@ function emptyCart() {
     cartBadge.classList.add("d-none");
   }
 }
-
-async function fetchData(method) {
-  await fetch("https://bwp501-hw-default-rtdb.firebaseio.com/Cart.json", {
-    method: method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(cart),
-  });
+//add random id to user
+let ID = localStorage.getItem("e-comm_ID") || null;
+if (!ID) {
+  localStorage.setItem("e-comm_ID", Math.floor(Math.random() * 999));
+  ID = localStorage.getItem("e-comm_ID");
 }
-
-function getCart() {
-  fetch("https://bwp501-hw-default-rtdb.firebaseio.com/Cart.json")
+//add cart to data base
+async function fetchData() {
+  await fetch(
+    `https://bwp501-hw-default-rtdb.firebaseio.com/users/${ID}.json`,
+    {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cart),
+    }
+  );
+}
+//get cart from database
+async function getData() {
+  await fetch(`https://bwp501-hw-default-rtdb.firebaseio.com/users/${ID}.json`)
     .then((res) => {
       if (res.ok) {
+        errorAlert.classList.add("d-none");
         return res.json();
       }
     })
     .then((data) => {
-      for (let a in data) {
-        if (data[a]) {
-          cart = data[a];
-          productsControlBtns();
-          addToCart();
-        }
+      if (data) {
+        cart = data;
+        addToCart();
+        productsControlBtns();
       }
     })
     .catch((err) => {
@@ -297,12 +306,5 @@ function getCart() {
       console.log(err);
     });
 }
-
-const postCart = () => {
-  fetchData("delete");
-  fetchData("post");
-};
-productsControlBtns();
-addToCart();
-getCart();
+getData();
 emptyCart();
