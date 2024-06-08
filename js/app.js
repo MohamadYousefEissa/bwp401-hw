@@ -134,6 +134,7 @@ const cartContainer = document.querySelector("#cart-container");
 const cartBadge = document.querySelector(".badge");
 let deleteAllBtn = document.querySelector("#delete-all-btn");
 let removeFromCartBtn = document.querySelectorAll(".remove-from-cart");
+const errorAlert = document.querySelector("#error-alert");
 
 //add eventlistner to all button to make the page dynamic
 for (let i = 0; i < products.length; i++) {
@@ -148,14 +149,21 @@ for (let i = 0; i < products.length; i++) {
     productQuantity[i].value = products[i].quantity;
   });
   addToCartBtn[i].addEventListener("click", () => {
-    products[i].inCart = true;
-    addToCartBtn[i].disabled = products[i].inCart;
-    plus[i].disabled = products[i].inCart;
-    minus[i].disabled = products[i].inCart;
-    addToCartBtn[i].innerHTML = `Added <i class="bi bi-cart"></i>`;
-
     cart.push(products[i]);
+    postCart();
+    productsControlBtns();
     addToCart();
+  });
+}
+//change button text and disable the increase and decrease buttons
+function productsControlBtns() {
+  cart.forEach((product) => {
+    const index = product.index;
+    products[index].inCart = true;
+    addToCartBtn[index].disabled = products[index].inCart;
+    plus[index].disabled = products[index].inCart;
+    minus[index].disabled = products[index].inCart;
+    addToCartBtn[index].innerHTML = `Added <i class="bi bi-cart"></i>`;
   });
 }
 //function to add the products to cart
@@ -220,6 +228,7 @@ function addToCart() {
     });
     cart = [];
     addToCart();
+    postCart();
     emptyCart(); //cal this to show 'no products' word
   });
 }
@@ -242,12 +251,11 @@ function removeFromCart(i) {
   plus[removedProduct.index].disabled = products[removedProduct.index].inCart;
   minus[removedProduct.index].disabled = products[removedProduct.index].inCart;
   addToCartBtn[removedProduct.index].innerHTML = "Add to Cart";
-  cart.splice(
-    i,
-    1
-  ); /*splice use to remove item from array, i refer to the index will remove from array,
+  cart.splice(i, 1);
+  /*splice use to remove item from array, i refer to the index will remove from array,
    and 1 to numbers of items you wanna remove after this index*/
   addToCart();
+  postCart();
   emptyCart();
 }
 
@@ -257,3 +265,44 @@ function emptyCart() {
     cartBadge.classList.add("d-none");
   }
 }
+
+async function fetchData(method) {
+  await fetch("https://bwp501-hw-default-rtdb.firebaseio.com/Cart.json", {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cart),
+  });
+}
+
+function getCart() {
+  fetch("https://bwp501-hw-default-rtdb.firebaseio.com/Cart.json")
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      for (let a in data) {
+        if (data[a]) {
+          cart = data[a];
+          productsControlBtns();
+          addToCart();
+        }
+      }
+    })
+    .catch((err) => {
+      errorAlert.classList.remove("d-none");
+      console.log(err);
+    });
+}
+
+const postCart = () => {
+  fetchData("delete");
+  fetchData("post");
+};
+productsControlBtns();
+addToCart();
+getCart();
+emptyCart();
