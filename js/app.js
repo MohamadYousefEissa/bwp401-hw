@@ -219,20 +219,20 @@ function addToCart() {
 <div class="dropdown">
   <form class="dropdown-menu p-4" id="pay-card">
       <label class="form-label">Location</label>
-      <input required name="location" type="text" class="form-control w-100" placeholder="Location">
+      <input autocomplete="off" required name="location" type="text" class="form-control w-100" placeholder="Location">
       <label  class="form-label mt-2">Card number</label>
-      <input required name="card-number" type="text" class="form-control w-100" placeholder="Card number">
+      <input inputmode="numeric" autocomplete="off" required name="card-number" type="text" class="form-control w-100" placeholder="Card number">
 
       <div class="d-flex gap-3 mt-2 mb-2">
-        <input required name="mm/yy" type="text" class="form-control" placeholder="MM / YY">
-        <input required name="cvv" type="text" class="form-control" placeholder="CVV">
+        <input inputmode="numeric" autocomplete="off" required name="mm/yy" type="text" class="form-control" placeholder="MM / YY">
+        <input inputmode="numeric" autocomplete="off" required name="cvv" type="text" class="form-control" placeholder="CVV">
         <img src="./images/cvv-icon.png" class="cvv-icon" />
       </div>
 
       <label class="form-label">Billing address</label>
       <div class="d-flex gap-3 mb-2">
-        <input required name="first-name" type="text" class="form-control" placeholder="First name">
-        <input required name="last-name" type="text" class="form-control" placeholder="Last name">
+        <input autocomplete="off" required name="first-name" type="text" class="form-control" placeholder="First name">
+        <input autocomplete="off" required name="last-name" type="text" class="form-control" placeholder="Last name">
       </div>
       <button type="submit" class="btn btn-primary">Buy Now</button>
   </form>
