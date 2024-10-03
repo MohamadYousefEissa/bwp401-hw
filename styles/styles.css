@@ -29,9 +29,12 @@ a {
 .carousel-caption i {
   font-size: 6vw;
 }
-
+.caption1 {
+  top: 25%;
+}
 .caption2 {
   left: 70%;
+  top: 20%;
 }
 .card-img-top {
   height: 300px;
@@ -71,20 +74,6 @@ a {
 #details-cont,
 #details-cont h2 {
   font-weight: bold;
-}
-
-th,
-tr,
-td {
-  border: 1px solid #c4dcf3;
-  text-align: center;
-}
-thead {
-  color: white;
-  background: var(--bs-primary);
-}
-tbody tr:nth-of-type(odd) {
-  background: #eef7ff;
 }
 
 footer {
@@ -139,18 +128,18 @@ footer i {
   .carousel img {
     height: 40vh;
   }
-  .carousel-caption {
-    font-size: 8vw;
-    top: 30%;
-  }
+  .carousel-caption,
   .carousel-caption i {
-    font-size: 10vw;
+    font-size: 6vw;
+  }
+  #cart-container .col {
+    font-size: 14px;
   }
   .caption1 {
-    top: 15%;
+    top: 25%;
   }
   .caption2 {
-    top: -5%;
+    top: 20%;
   }
   .icon-footer-container {
     padding-top: 40px;
